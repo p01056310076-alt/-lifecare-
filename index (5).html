@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1F5A43">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>구경GO 라이프케어</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="어르신을 위한 안부 기록, 생활 도움, 일자리, 스마트폰 도움 길잡이">
+<!-- 카카오톡·문자 공유 미리보기(커버). 주소가 바뀌면 아래 2곳의 주소도 같이 바꿔요 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="구경GO">
+<meta property="og:title" content="구경GO 라이프케어">
+<meta property="og:description" content="안부 기록 · 생활 도움 · 일자리 · 스마트폰 도움까지 한 곳에">
+<meta property="og:url" content="https://p01056310076-alt.github.io/-lifecare-/">
+<meta property="og:image" content="https://p01056310076-alt.github.io/-lifecare-/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<style>
+/* Layout: 한 손으로 쓰는 세로 한 줄 화면 — 큰 버튼을 위에서 아래로, 화면마다 "지금 할 일 → 공식 창구 → 담기" */
+:root{
+  --bg:#FBF7EE; --surface:#FFFFFF; --line:#E4DDCD; --ink:#1B2A22; --sub:#2E3A33; --muted:#4F5B53;
+  --green:#1F5A43; --on-green:#FFFFFF; --link:#1F5A43; --tint:#E6F0EA; --tint-ink:#14472F;
+  --gold:#F2B705; --on-gold:#1B2A22; --gold-edge:#8A6400;
+  --warn:#FFF1DC; --warn-ink:#5C3B00; --red:#B42318; --on-red:#FFFFFF;
+  --kakao:#FEE500; --on-kakao:#191600; --kakao-edge:#8A7A00;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111915; --surface:#19241F; --line:#2E3C35; --ink:#EEF3EF; --sub:#CFD9D2; --muted:#A8B7AE;
+  --green:#2E7A58; --on-green:#FFFFFF; --link:#8FD1AE; --tint:#1F3329; --tint-ink:#BFE3CF;
+  --gold:#F2B705; --on-gold:#1B2A22; --gold-edge:#6B4E00;
+  --warn:#3A2E14; --warn-ink:#F4D9A8; --red:#C9372C; --on-red:#FFFFFF;
+  --kakao:#FEE500; --on-kakao:#191600; --kakao-edge:#7A6C00; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111915; --surface:#19241F; --line:#2E3C35; --ink:#EEF3EF; --sub:#CFD9D2; --muted:#A8B7AE;
+  --green:#2E7A58; --on-green:#FFFFFF; --link:#8FD1AE; --tint:#1F3329; --tint-ink:#BFE3CF;
+  --gold:#F2B705; --on-gold:#1B2A22; --gold-edge:#6B4E00;
+  --warn:#3A2E14; --warn-ink:#F4D9A8; --red:#C9372C; --on-red:#FFFFFF;
+  --kakao:#FEE500; --on-kakao:#191600; --kakao-edge:#7A6C00; color-scheme:dark}
+
+html{font-size:112.5%}
+html.big{font-size:131%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.6;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0;line-height:1.35;text-wrap:balance}
+p{margin:0}
+a{color:var(--link)}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:2px solid var(--line)}
+.top-in,.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{display:flex;align-items:center;gap:8px;padding-block:10px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1;text-decoration:none;color:var(--ink)}
+.mark{width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--on-gold);display:grid;place-items:center;font-weight:900;font-size:.8rem;flex-shrink:0}
+.brand b{display:block;font-size:1.02rem;font-weight:900;line-height:1.2}
+.brand span{display:block;font-size:.82rem;color:var(--muted);line-height:1.3}
+.brand .mark{display:grid;color:var(--on-gold);font-size:.8rem;line-height:1}
+.back{display:none;align-items:center;gap:4px;min-height:48px;padding:0 12px 0 4px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:700;font-size:1rem}
+.top.sub .back{display:flex}
+.top.sub .brand .mark{display:none}
+.iconbtn{width:56px;min-height:56px;border-radius:12px;border:2px solid var(--green);background:var(--surface);color:var(--link);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.72rem;font-weight:700;cursor:pointer;padding:0;flex-shrink:0}
+.iconbtn[aria-pressed="true"]{background:var(--green);color:var(--on-green)}
+.iconbtn .ga{font-size:1.15rem;font-weight:900;line-height:1}
+
+main{padding-block:20px 32px}
+.screen{display:flex;flex-direction:column;gap:22px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.title{font-size:1.45rem;font-weight:900}
+.h2{font-size:1.2rem;font-weight:900}
+.lead{font-size:1.02rem;color:var(--sub)}
+.small{font-size:.85rem;color:var(--muted)}
+.box{background:var(--surface);border:2px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.box.strong{border:3px solid var(--green)}
+.tint{background:var(--tint);color:var(--ink);border-radius:var(--radius);padding:14px 16px}
+.warn{background:var(--warn);color:var(--warn-ink);border-radius:14px;padding:14px 16px;font-size:.9rem}
+.warn b{color:var(--warn-ink)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.big-num{font-size:1.45rem;font-weight:900;line-height:1.25;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--green);color:var(--on-green);font-size:.8rem;font-weight:700}
+.pill.soft{background:var(--tint);color:var(--tint-ink)}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;border-radius:var(--radius);border:3px solid var(--green);background:var(--surface);color:var(--link);font-size:1.1rem;font-weight:900;text-decoration:none;cursor:pointer;padding:8px 16px;text-align:center;width:100%}
+.btn.fill{background:var(--green);color:var(--on-green)}
+.btn.gold{background:var(--gold);color:var(--on-gold);border-color:var(--gold);box-shadow:0 5px 0 var(--gold-edge);min-height:78px;font-size:1.3rem}
+.btn.gold:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gold-edge)}
+.btn.kakao{background:var(--kakao);color:var(--on-kakao);border-color:var(--kakao);box-shadow:0 4px 0 var(--kakao-edge)}
+.btn.done{background:var(--tint);color:var(--tint-ink);border-color:var(--green);box-shadow:none}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+.call{min-height:86px;border-radius:var(--radius);text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:3px solid var(--green);background:var(--surface);color:var(--ink)}
+.call b{font-size:1.4rem;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.2}
+.call span{font-size:.8rem;font-weight:700}
+.call.red{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.call.green{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.row-link{display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 16px;border-radius:var(--radius);background:var(--surface);border:2px solid var(--line);color:var(--ink);text-decoration:none}
+.row-link.fill{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.row-link .t{display:block;font-size:1.08rem;font-weight:900;line-height:1.35}
+.row-link .s{display:block;font-size:.82rem;opacity:.85}
+.row-link .grow{flex:1;min-width:0}
+
+.tile{min-height:136px;padding:14px;border-radius:18px;background:var(--surface);border:2px solid var(--line);color:var(--ink);text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.tile .ic{width:46px;height:46px;border-radius:12px;background:var(--tint);color:var(--link);display:grid;place-items:center}
+.tile b{font-size:1.02rem;font-weight:900;line-height:1.3}
+.tile span{font-size:.82rem;color:var(--muted);line-height:1.4}
+
+.choices{display:grid;gap:8px}
+.choice{min-height:60px;border-radius:14px;border:3px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.02rem;font-weight:900;cursor:pointer;text-align:left;padding:8px 16px;display:flex;align-items:center;gap:12px}
+.choice[aria-pressed="true"]{border-color:var(--green);background:var(--tint)}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.seg button{min-height:54px;border-radius:14px;border:2px solid var(--green);background:var(--surface);color:var(--link);font-size:1rem;font-weight:900;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--green);color:var(--on-green)}
+
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.week .d{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.82rem;color:var(--sub)}
+.week .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--green);display:grid;place-items:center;font-weight:900;font-size:.9rem;color:var(--link)}
+.week .dot.on{background:var(--green);color:var(--on-green)}
+.week .today{font-weight:900;color:var(--ink)}
+
+.step{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:900}
+.step i{width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--on-green);display:grid;place-items:center;font-style:normal;font-size:.9rem;flex-shrink:0}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.list li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:1rem}
+.say{background:var(--warn);color:var(--warn-ink);border-radius:14px;padding:14px 16px}
+.say b{display:block;font-size:.92rem;margin-bottom:4px}
+
+.msg{background:var(--bg);border-radius:12px;padding:14px;white-space:pre-line;font-size:1rem}
+.status{background:var(--tint);color:var(--tint-ink);border-radius:14px;padding:12px 16px;font-weight:700}
+.bars{display:flex;gap:6px}
+.bars span{flex:1;height:8px;border-radius:999px;background:var(--line)}
+.bars span.on{background:var(--green)}
+.steptext{min-height:5.2em;font-size:1.15rem;font-weight:700}
+
+.saved-item{display:flex;flex-direction:column;gap:8px}
+.saved-item.is-done .st{text-decoration:line-through;color:var(--muted)}
+.st{font-size:1.08rem;font-weight:900}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.pair .btn{min-height:54px;font-size:1rem}
+.mini{min-width:92px}
+
+.prod{display:flex;gap:14px;align-items:flex-start}
+.prod .ph{width:84px;height:84px;border-radius:12px;background:var(--tint);color:var(--link);display:grid;place-items:center;flex-shrink:0}
+.prod .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.prod b{font-size:1.02rem;font-weight:900}
+.prod .btn{min-height:50px;font-size:.95rem;border-width:2px}
+
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.foot a{min-height:44px;display:flex;align-items:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:14px 20px;border-radius:14px;font-weight:700;max-width:calc(100% - 32px);text-align:center;z-index:20;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="back" href="#home" aria-label="홈으로">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>홈
+    </a>
+    <a class="brand" href="#home">
+      <span class="mark" aria-hidden="true">GO</span>
+      <span><b id="topTitle">구경GO 라이프케어</b><span id="topDate"></span></span>
+    </a>
+    <button class="iconbtn" id="speakBtn" type="button" aria-pressed="false" aria-label="이 화면 소리로 듣기">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+      <span id="speakLabel">듣기</span>
+    </button>
+    <button class="iconbtn" id="bigBtn" type="button" aria-pressed="false" aria-label="글씨 크기 바꾸기">
+      <span class="ga">가</span><span id="bigLabel">크게</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+
+<!-- 1 홈 -->
+<section class="screen" data-screen="home" aria-label="홈">
+  <div class="box strong stack">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+      <h1 class="title">오늘의 안부</h1>
+      <span class="small" id="weekCount"></span>
+    </div>
+    <a class="btn gold" href="#mood" id="moodCta">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+      <span id="moodCtaText">오늘 기분 남기기</span>
+    </a>
+    <div class="week" id="week" aria-label="이번 주 안부"></div>
+    <p class="status" id="nudge" hidden></p>
+  </div>
+
+  <div class="stack">
+    <h2 class="h2">무엇을 도와드릴까요?</h2>
+    <div class="grid2">
+      <a class="tile" href="#help"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></span><b>생활 도움</b><span>생활비 · 식사 · 안전</span></a>
+      <a class="tile" href="#work"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><b>내 경험으로 일하기</b><span>시간·거리 맞는 일</span></a>
+      <a class="tile" href="#together"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.5a5 5 0 0 1 5.5 5.5"/></svg></span><b>함께할 사람</b><span>경로당 · 복지관 · 배움</span></a>
+      <a class="tile" href="#phone"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span><b>스마트폰 도움</b><span>글씨 · 알람 · 사기 문자</span></a>
+      <a class="tile" href="#prepare"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><b>미리 알아두기</b><span>돌봄 · 연명의료 · 상속</span></a>
+      <a class="tile" href="#family"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><b>자녀와 연결</b><span>안부 받기 · 선물</span></a>
+    </div>
+  </div>
+
+  <a class="row-link fill" href="#saved">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg>
+    <span class="grow"><span class="t">내 보관함</span><span class="s" id="savedSub">담아 둔 할 일이 없어요</span></span>
+    <span class="pill" style="background:var(--gold);color:var(--on-gold);font-size:.95rem" id="savedCount">0</span>
+  </a>
+
+  <div class="stack">
+    <h2 class="h2">전화로 물어보기</h2>
+    <div class="grid3">
+      <a class="call red" href="tel:119"><b>119</b><span>구급·화재</span></a>
+      <a class="call green" href="tel:129"><b>129</b><span>복지 상담</span></a>
+      <a class="call" href="tel:1355"><b>1355</b><span>국민연금</span></a>
+    </div>
+    <p class="small">전화 연결이 안 되면 번호를 직접 눌러 주세요.</p>
+  </div>
+
+  <a class="warn" href="#help" data-tab="safe" style="text-decoration:none;display:block"><b>꼭 알아 두세요.</b> 이 앱은 위급한 상황을 자동으로 알리지 않아요. 혼자 사시면 나라에서 집에 달아 주는 <b>응급안전안심서비스</b>를 알아보세요. <u>자세히 보기</u></a>
+
+  <a class="row-link" href="#feedback">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+    <span class="grow"><span class="t">써 보신 소감 남기기</span><span class="s">1분이면 돼요 · 고칠 점을 알려 주세요</span></span>
+  </a>
+
+  <div class="foot"><span>구경GO 라이프케어 · v1.1</span><a href="#about">앱 정보 · 내 기록 지우기</a></div>
+</section>
+
+<!-- 2 오늘의 안부 -->
+<section class="screen" data-screen="mood" aria-label="오늘의 안부" hidden>
+  <div class="stack">
+    <h1 class="title">오늘 기분은 어떠세요?</h1>
+    <p class="small">하나를 누르면 오늘 안부가 남아요. 다시 누르면 바꿀 수 있어요.</p>
+    <div class="choices" id="moodChoices"></div>
+  </div>
+  <div class="stack" id="moodAfter" hidden>
+    <p class="status" role="status" id="moodStatus"></p>
+    <div class="warn stack" id="moodCare" hidden>
+      <h2 class="h2" style="color:var(--warn-ink)">혼자 참지 마세요</h2>
+      <a class="btn fill" href="tel:129">129 복지 상담 전화</a>
+      <a class="btn" href="tel:119" style="background:var(--red);color:var(--on-red);border-color:var(--red)">몸이 많이 불편하면 119</a>
+    </div>
+    <div class="box stack">
+      <h2 class="h2">자녀에게도 알릴까요?</h2>
+      <p class="msg" id="moodMsg"></p>
+      <p class="small">저절로 가지 않아요. 아래 버튼을 눌러야 보내져요.</p>
+      <button class="btn kakao" type="button" id="shareBtn">카카오톡 · 문자로 보내기</button>
+      <div class="stack" style="gap:6px">
+        <label class="small" for="kidTel" style="font-weight:700;color:var(--sub)">문자 받을 자녀 번호 (선택 · 이 휴대폰에만 저장)</label>
+        <div class="pair"><input id="kidTel" type="tel" inputmode="numeric" autocomplete="off" placeholder="010-0000-0000" class="box" style="font:inherit;font-size:1.1rem;min-height:54px;color:var(--ink);min-width:0"><button class="btn fill mini" type="button" id="kidSave" style="min-height:54px;font-size:1rem">저장</button></div>
+      </div>
+      <a class="btn" id="smsBtn" href="sms:">문자 앱 열기</a>
+      <p class="status" role="status" id="shareStatus" hidden></p>
+    </div>
+  </div>
+  <a class="row-link" href="#phone" data-topic="alarm">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M5 3L2 6M22 6l-3-3"/></svg>
+    <span class="grow"><span class="t">매일 잊지 않으려면</span><span class="s">휴대폰 알람 맞추는 법 보기</span></span>
+  </a>
+</section>
+
+<!-- 3 생활 도움 -->
+<section class="screen" data-screen="help" aria-label="생활 도움" hidden>
+  <div class="seg" role="group" aria-label="생활 도움 분야" id="helpTabs"></div>
+  <div class="stack" id="helpBody"></div>
+  <div class="stack">
+    <h2 class="step"><i>1</i>지금 할 일</h2>
+    <ul class="list" id="helpTodo"></ul>
+    <div class="say"><b>전화할 때 이렇게 말해요</b><span id="helpAsk"></span></div>
+  </div>
+  <div class="stack">
+    <h2 class="step"><i>2</i>공식 창구</h2>
+    <a class="row-link fill" id="helpTel" href="tel:1355"><span class="grow"><span class="t" id="helpTelName"></span><span class="s">전화로 묻고 신청하기</span></span></a>
+    <div class="row-link"><span class="grow"><span class="t">가까운 주민센터</span><span class="s">직접 가서 · 자녀가 대신 신청해도 돼요</span></span></div>
+    <a class="row-link" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener"><span class="grow"><span class="t">복지로 누리집</span><span class="s">자녀가 대신 알아볼 때</span></span></a>
+  </div>
+  <div class="stack">
+    <h2 class="step"><i>3</i>잊지 않게 담기</h2>
+    <button class="btn gold" type="button" data-save="" id="helpSave">보관함에 담기</button>
+  </div>
+  <p class="small">2026년 10월에 정리한 내용이에요. 받을 수 있는지는 공식 창구에서 꼭 확인하세요. 구경GO는 대신 판정하지 않아요.</p>
+</section>
+
+<!-- 4 일하기 -->
+<section class="screen" data-screen="work" aria-label="내 경험으로 일하기" hidden>
+  <h1 class="title">나에게 맞는 일을 함께 찾아봐요</h1>
+  <div class="stack">
+    <h2 class="h2" id="qTime">얼마나 일하고 싶으세요?</h2>
+    <div class="choices" role="group" aria-labelledby="qTime" id="timeChoices"></div>
+  </div>
+  <div class="stack">
+    <h2 class="h2" id="qDist">어디까지 다닐 수 있으세요?</h2>
+    <div class="grid2" role="group" aria-labelledby="qDist" id="distChoices"></div>
+  </div>
+  <div class="stack" style="padding-top:16px;border-top:2px solid var(--line)">
+    <h2 class="h2">이런 길이 있어요</h2>
+    <div class="stack" id="workResults"></div>
+  </div>
+  <div class="stack">
+    <h2 class="h2">공식 창구</h2>
+    <a class="btn fill" href="tel:129">129에 물어보기</a>
+    <a class="row-link" href="https://www.work24.go.kr" target="_blank" rel="noopener"><span class="grow"><span class="t">고용24 누리집</span><span class="s">일자리 찾기 · 자녀와 함께 보기</span></span></a>
+    <a class="row-link" id="guardLink" href="#work" hidden><span class="grow"><span class="t">경비원 취업 길잡이</span><span class="s">구경GO가 정리한 준비·면접 안내</span></span></a>
+  </div>
+  <p class="small">금액은 2026년 기준이에요. 모집 시기와 인원은 지역마다 달라요.</p>
+</section>
+
+<!-- 5 보관함 -->
+<section class="screen" data-screen="saved" aria-label="내 보관함" hidden>
+  <div class="tint" style="background:var(--green);color:var(--on-green);display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <div><span style="font-size:.9rem;font-weight:700">남은 할 일</span><div class="big-num" style="font-size:1.9rem" id="leftNum">0개</div></div>
+    <span style="font-size:.85rem;text-align:right">끝난 일은<br>눌러서 표시해요</span>
+  </div>
+  <div class="stack" id="savedList"></div>
+  <div class="stack" id="savedEmpty" hidden>
+    <div class="box"><p>아직 담아 둔 할 일이 없어요. 생활 도움, 일하기, 미리 알아두기 화면에서 <b>보관함에 담기</b>를 눌러 보세요.</p></div>
+    <a class="btn fill" href="#help">생활 도움 보러 가기</a>
+  </div>
+  <button class="btn kakao" type="button" id="shareSaved">할 일 목록을 자녀에게 보내기</button>
+  <p class="status" role="status" id="savedStatus" hidden></p>
+  <p class="small">보관함은 이 휴대폰에만 저장돼요. 휴대폰을 바꾸면 사라질 수 있어요.</p>
+</section>
+
+<!-- 6 자녀와 연결 -->
+<section class="screen" data-screen="family" aria-label="자녀와 연결" hidden>
+  <div class="stack">
+    <h1 class="title">부모님 안부는 카카오톡으로 받아요</h1>
+    <ol class="list">
+      <li><b>1.</b> 부모님 휴대폰 <b>첫 화면에 구경GO 아이콘</b>을 만들어 드려요. <a href="#phone" data-topic="home">만드는 법</a></li>
+      <li><b>2.</b> 부모님이 <b>오늘 기분</b>을 남기고 보내면 나에게 카톡이 와요.</li>
+      <li><b>3.</b> 이틀 연속 소식이 없으면 <b>먼저 전화</b>해 보세요.</li>
+    </ol>
+    <p class="warn">이 앱은 부모님 상태를 자동으로 살피지 않아요. 혼자 사시면 주민센터의 <b>노인맞춤돌봄서비스</b>와 <b>응급안전안심서비스</b>도 함께 알아보세요.</p>
+  </div>
+  <div class="stack" style="padding-top:16px;border-top:2px solid var(--line)">
+    <h2 class="title" style="font-size:1.3rem">부모님 선물 고르기</h2>
+    <div class="grid2" role="group" aria-label="선물 종류" id="giftTabs"></div>
+    <div class="stack" id="giftList"></div>
+    <p class="box small" id="disclosure">이 화면의 상품 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  </div>
+</section>
+
+<!-- 7 함께할 사람 -->
+<section class="screen" data-screen="together" aria-label="함께할 사람" hidden>
+  <h1 class="title">동네에서 함께할 곳을 찾아봐요</h1>
+  <div class="grid2" role="group" aria-label="하고 싶은 것" id="togTabs"></div>
+  <div class="box strong stack" id="togCard"></div>
+  <div class="say"><b>처음 갈 때 이렇게 물어봐요</b><span id="togAsk"></span></div>
+  <div class="stack">
+    <h2 class="h2">어디에 물어보나요</h2>
+    <a class="btn fill" href="tel:129">129에 우리 동네 물어보기</a>
+    <div class="row-link"><span class="grow"><span class="t">주민센터 · 노인복지관</span><span class="s">가까운 경로당·강좌 안내를 받아요</span></span></div>
+  </div>
+  <button class="btn gold" type="button" data-save="" id="togSave">보관함에 담기</button>
+  <p class="small">구경GO는 모임을 직접 운영하거나 사람을 소개하지 않아요. 공식 기관을 안내해 드려요.</p>
+</section>
+
+<!-- 8 스마트폰 도움 -->
+<section class="screen" data-screen="phone" aria-label="스마트폰 도움" hidden>
+  <h1 class="title">무엇이 어려우세요?</h1>
+  <div class="choices" role="group" aria-label="도움 받을 내용" id="phoneTopics"></div>
+  <div class="box strong stack">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <h2 class="h2" id="phoneTitle"></h2><span class="small" id="phoneNo"></span>
+    </div>
+    <div class="bars" id="phoneBars" aria-hidden="true"></div>
+    <p class="steptext" role="status" id="phoneText"></p>
+    <div class="grid2">
+      <button class="btn" type="button" id="phonePrev">이전</button>
+      <button class="btn fill" type="button" id="phoneNext">다음</button>
+    </div>
+    <p class="small" id="phoneNote"></p>
+  </div>
+  <div class="grid2" id="scamCalls" hidden>
+    <a class="call green" href="tel:118"><b>118</b><span>사기 문자 상담</span></a>
+    <a class="call red" href="tel:112"><b>112</b><span>돈을 보냈다면</span></a>
+  </div>
+  <div class="tint"><b>직접 배우고 싶으시면</b><p class="small" style="color:var(--sub)">노인복지관·주민센터의 스마트폰 교실을 물어보세요.</p></div>
+</section>
+
+<!-- 9 미리 알아두기 -->
+<section class="screen" data-screen="prepare" aria-label="미리 알아두기" hidden>
+  <div class="seg" role="group" aria-label="알아둘 분야" id="prepTabs"></div>
+  <p class="box">미리 알아 두면 가족이 덜 당황해요. 결정은 천천히, 가족과 함께 하세요.</p>
+  <div class="stack"><h1 class="title" id="prepTitle"></h1><p class="lead" id="prepWhat"></p></div>
+  <div class="tint"><span class="small" style="color:var(--tint-ink);font-weight:700" id="prepFactLabel"></span><div style="font-size:1.12rem;font-weight:900" id="prepFact"></div></div>
+  <div class="stack"><h2 class="step"><i>1</i>지금 할 일</h2><ul class="list" id="prepTodo"></ul></div>
+  <div class="stack">
+    <h2 class="step"><i>2</i>공식 창구</h2>
+    <a class="row-link fill" id="prepTel" href="tel:15771000"><span class="grow"><span class="t" id="prepTelName"></span><span class="s" id="prepTelSub"></span></span></a>
+    <div class="row-link"><span class="grow"><span class="t" id="prepPlace"></span><span class="s" id="prepPlaceSub"></span></span></div>
+  </div>
+  <div class="stack">
+    <h2 class="step"><i>3</i>가족과 나누기</h2>
+    <button class="btn gold" type="button" data-save="" id="prepSave">보관함에 담아 두기</button>
+  </div>
+  <p class="small">2026년 10월에 정리한 안내예요. 자세한 기준은 공식 창구에서 확인하세요.</p>
+</section>
+
+<!-- 10 앱 정보 -->
+<section class="screen" data-screen="about" aria-label="앱 정보" hidden>
+  <h1 class="title">앱 정보 · 내 기록</h1>
+  <div class="box stack">
+    <h2 class="h2">내 기록은 어디에 있나요?</h2>
+    <p>안부 기록과 보관함은 <b>이 휴대폰 안에만</b> 저장돼요. 구경GO나 다른 사람에게 보내지지 않아요.</p>
+    <p class="small" id="storeNote"></p>
+  </div>
+  <div class="box stack">
+    <h2 class="h2">내 기록 모두 지우기</h2>
+    <p class="small">안부 기록, 보관함, 글씨 크기 설정이 모두 지워져요. 되돌릴 수 없어요.</p>
+    <button class="btn" type="button" id="wipeAsk">기록 지우기</button>
+    <div class="warn stack" id="wipeConfirm" hidden>
+      <b>정말 모두 지울까요?</b>
+      <div class="grid2">
+        <button class="btn" type="button" id="wipeNo">아니요</button>
+        <button class="btn" type="button" id="wipeYes" style="background:var(--red);color:var(--on-red);border-color:var(--red)">네, 지울게요</button>
+      </div>
+    </div>
+  </div>
+  <div class="box stack">
+    <h2 class="h2">왜 만들었나요</h2>
+    <p>어르신의 디지털 역량은 일반 시민의 67.2% 수준이고, 75세 이상 어르신은 궁금한 점을 전화로 해결하는 비율이 73.7%예요. 그래서 구경GO는 큰 글씨, 소리 듣기, 전화로 묻는 길을 먼저 둡니다.</p>
+    <p class="small">출처: 서울디지털재단, 2022 서울시민 디지털역량 실태조사</p>
+    <p class="small">구경GO는 자격을 판정하거나 돌봄 업체를 연결하지 않아요. 국민연금공단·주민센터·복지로 같은 공식 창구로 안내해요.</p>
+  </div>
+  <div class="box stack">
+    <h2 class="h2">이 앱 소개하기</h2>
+    <p class="small">자녀·이웃·복지관 선생님께 앱 주소를 보내요.</p>
+    <button class="btn kakao" type="button" id="introShare">앱 소개 보내기</button>
+    <p class="status" role="status" id="introStatus" hidden></p>
+  </div>
+  <div class="box stack">
+    <h2 class="h2">안내</h2>
+    <p class="small">구경GO 라이프케어 v1.1 · 정보는 2026년 10월 기준이에요. 복지 자격은 공식 창구에서 확인하세요. 위급할 때는 119에 전화하세요.</p>
+  </div>
+</section>
+
+<!-- 11 소감 -->
+<section class="screen" data-screen="feedback" aria-label="써 보신 소감" hidden>
+  <div class="stack"><h1 class="title">써 보신 소감을 알려 주세요</h1><p class="lead">고칠 점을 찾는 데 쓰여요. 고르기만 하면 돼요.</p></div>
+  <div class="stack"><h2 class="h2" id="fq1">글씨와 버튼이 잘 보이셨나요?</h2><div class="seg" role="group" aria-labelledby="fq1" id="fbSee"></div></div>
+  <div class="stack"><h2 class="h2" id="fq2">가장 쓸모 있던 메뉴는요?</h2><div class="grid2" role="group" aria-labelledby="fq2" id="fbBest"></div></div>
+  <div class="stack"><h2 class="h2" id="fq3">어렵거나 헷갈린 곳은요?</h2><p class="small">여러 개 골라도 돼요.</p><div class="grid2" role="group" aria-labelledby="fq3" id="fbHard"></div></div>
+  <div class="stack"><h2 class="h2" id="fq4">나이대</h2><div class="seg" role="group" aria-labelledby="fq4" id="fbAge"></div></div>
+  <div class="stack"><label class="h2" for="fbNote">하고 싶은 말 (선택)</label><textarea id="fbNote" rows="4" class="box" maxlength="500" style="font:inherit;font-size:1.05rem;width:100%;color:var(--ink)" placeholder="예: 글씨가 더 컸으면 좋겠어요"></textarea></div>
+  <button class="btn gold" type="button" id="fbSend">소감 보내기</button>
+  <p class="status" role="status" id="fbStatus" hidden></p>
+  <p class="small">보내기를 누르기 전에는 어디로도 가지 않아요. 이름·전화번호는 적지 않아도 돼요. 함께 보내지는 사용 기록은 화면을 몇 번 열었는지 같은 숫자뿐이에요.</p>
+</section>
+
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+'use strict';
+/* ===== 운영자 설정: 여기만 고치면 돼요 ===== */
+var CONFIG = {
+  appUrl: 'https://p01056310076-alt.github.io/-lifecare-/',  // 앱 소개 보내기에 들어갈 주소
+  guardUrl: '',            // 경비원 취업 길잡이 주소 (비워 두면 숨김)
+  coupang: {}              // 선물 링크: { '큰 숫자 탁상시계': 'https://link.coupang.com/...' }
+};
+
+/* ===== 저장 ===== */
+var KEY = 'gukyeongo-lifecare-v1';
+function blank(){ return {moods:{}, saved:[], big:false, visits:{}, fb:{}, kidTel:'', first:''}; }
+var store = blank();
+var canStore = true;
+try{ var raw = localStorage.getItem(KEY); if(raw){ var s = JSON.parse(raw); if(s && typeof s === 'object'){ store.moods = s.moods || {}; store.saved = Array.isArray(s.saved) ? s.saved : []; store.big = !!s.big; store.visits = s.visits || {}; store.fb = s.fb || {}; store.kidTel = s.kidTel || ''; store.first = s.first || ''; } } }catch(e){ canStore = false; }
+function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); canStore = true; }catch(e){ canStore = false; } }
+
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function ymd(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+var DAYS = ['일','월','화','수','목','금','토'];
+function todayText(d){ return (d.getMonth()+1) + '월 ' + d.getDate() + '일 ' + DAYS[d.getDay()] + '요일'; }
+function timeText(d){ var h = d.getHours(); return (h < 12 ? '오전 ' : '오후 ') + ((h % 12) || 12) + '시 ' + String(d.getMinutes()).padStart(2,'0') + '분'; }
+var toastT;
+function toast(msg){ var t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function(){ t.hidden = true; }, 3200); }
+
+/* ===== 데이터 ===== */
+var MOODS = [
+  {id:'good', label:'좋아요', color:'#3E9B6A', text:'오늘도 잘 지내고 있어요. 걱정 마세요!'},
+  {id:'soso', label:'그저 그래요', color:'#F2B705', text:'오늘은 그냥 그래요. 시간 날 때 전화 한 통 주세요.'},
+  {id:'hard', label:'조금 힘들어요', color:'#E07A3A', text:'오늘은 좀 힘드네요. 전화 좀 해 줄래요?'}
+];
+var HELP = {
+  money:{label:'생활비', body:
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h1 class="title">기초연금</h1><span class="pill">2026년 기준</span></div>' +
+    '<p class="lead">만 65세 이상이고 한 달 소득인정액이 아래보다 적으면 받을 수 있어요.</p>' +
+    '<div class="grid2"><div class="box"><span class="small" style="font-weight:700;color:var(--sub)">혼자 사시면</span><div class="big-num">247만 원</div><span class="small">한 달 이하</span></div>' +
+    '<div class="box"><span class="small" style="font-weight:700;color:var(--sub)">부부라면</span><div class="big-num">395만 2천 원</div><span class="small">한 달 이하</span></div></div>' +
+    '<div class="tint"><span style="font-weight:700">혼자 받으시면 한 달 최대</span><div class="big-num" style="font-size:1.75rem">약 34만 9,700원</div><span class="small" style="color:var(--sub)">소득·재산, 국민연금 금액에 따라 줄어들 수 있어요.</span></div>',
+    todo:['신분증과 통장을 챙겨요','만 65세 생일 한 달 전부터 신청할 수 있어요','아래 말을 보며 전화해요'],
+    ask:'"저도 기초연금을 받을 수 있는지 알아보고 싶어요. 무엇을 준비하면 될까요?"', tel:'1355', telName:'국민연금공단 1355',
+    save:{id:'help-money', from:'생활 도움', title:'기초연금 받을 수 있는지 물어보기', hint:'신분증 · 통장 챙기기', tel:'1355'}},
+  meal:{label:'식사', body:
+    '<h1 class="title">식사 도움</h1><p class="lead">끼니 챙기기가 힘드시면 동네에서 도와주는 곳이 있어요.</p>' +
+    '<div class="box"><b style="font-size:1.1rem">경로식당</b><p style="color:var(--sub)">복지관 등에서 어르신 점심을 무료나 적은 돈으로 드려요.</p></div>' +
+    '<div class="box"><b style="font-size:1.1rem">식사 배달</b><p style="color:var(--sub)">몸이 불편해 나가기 어려운 혼자 사시는 어르신께 집으로 가져다 드려요.</p></div>' +
+    '<p class="small">지역마다 대상과 방법이 달라요. 주민센터에서 우리 동네 기준을 물어보세요.</p>',
+    todo:['우리 동네 경로식당이 어디인지 물어봐요','나가기 힘드시면 식사 배달을 물어봐요','자녀가 대신 전화해도 돼요'],
+    ask:'"혼자 지내는데 식사 챙기기가 힘들어요. 경로식당이나 식사 배달을 받을 수 있을까요?"', tel:'129', telName:'복지 상담 129',
+    save:{id:'help-meal', from:'생활 도움', title:'경로식당 · 식사 배달 물어보기', hint:'주민센터나 129에 전화', tel:'129'}},
+  safe:{label:'안전', body:
+    '<h1 class="title">안전 도움</h1>' +
+    '<div class="tint stack"><b style="font-size:1.1rem">응급안전안심서비스</b><p style="color:var(--sub)">집에 <b>화재감지기 · 응급호출기 · 활동량감지기</b>를 달아 드려요. 위급하면 119와 가족에게 알려 줘요.</p><b style="color:var(--tint-ink)">혼자 사시면 소득과 관계없이 신청할 수 있어요.</b></div>' +
+    '<div class="box"><b style="font-size:1.1rem">노인맞춤돌봄서비스</b><p style="color:var(--sub)">생활지원사가 찾아와 안부를 살피고 생활을 도와요. 기초연금 받는 분 등이 대상이에요.</p></div>',
+    todo:['혼자 사시면 응급안전안심서비스를 신청해요','돌봄이 필요하면 노인맞춤돌봄서비스도 물어봐요','위급할 때 알릴 가족 연락처를 정해 둬요'],
+    ask:'"혼자 사는데 응급안전안심서비스 장비를 달 수 있을까요?"', tel:'129', telName:'복지 상담 129',
+    save:{id:'help-safe', from:'생활 도움', title:'응급안전안심서비스 신청하기', hint:'주민센터 · 노인복지관', tel:'129'}}
+};
+var TIMES = [{id:'short', label:'일주일에 2~3일, 짧게'},{id:'mid', label:'하루 3~4시간, 꾸준히'},{id:'full', label:'하루 종일도 괜찮아요'}];
+var DISTS = [{id:'near', label:'걸어서 동네'},{id:'far', label:'버스 30분까지'}];
+var JOBS = {
+  pub:{name:'노인일자리 · 공익활동', pay:'한 달 29만 원', note:'한 달 30시간쯤 · 동네 환경·안전 활동 · 기초연금 받는 분 먼저', where:'주민센터 · 노인복지관', tel:'129'},
+  svc:{name:'노인일자리 · 사회서비스형', pay:'최저임금 이상', note:'2026년 시급 10,320원 · 한 달 60시간 이상 · 돌봄·안전 지원', where:'노인복지관 · 시니어클럽', tel:'129'},
+  guard:{name:'경비 · 시설 관리', pay:'시급 10,320원 이상', note:'아파트·건물 교대 근무 · 경력과 체력에 맞춰 고르기', where:'고용24 · 경비 용역업체', tel:'129'}
+};
+var TOG = {
+  talk:{label:'이야기 나누기', place:'경로당', what:'동네 어르신들이 모여 이야기하고 쉬는 곳이에요. 점심을 함께 드시는 곳도 많아요.', tags:['가까운 동네','편하게 들르기','무료'], ask:'"이 근처에 다닐 만한 경로당이 어디 있을까요?"'},
+  move:{label:'몸 움직이기', place:'노인복지관 운동 교실', what:'체조·걷기·탁구처럼 무리 없는 운동을 여럿이 함께 해요.', tags:['강사와 함께','건강 체크','적은 비용'], ask:'"무릎이 안 좋아도 할 수 있는 운동 교실이 있을까요?"'},
+  learn:{label:'새로 배우기', place:'복지관 · 평생학습관 강좌', what:'스마트폰·노래·그림·글쓰기 같은 강좌를 들어요. 친구도 생겨요.', tags:['스마트폰 교실','취미','학기제'], ask:'"이번에 새로 시작하는 어르신 강좌가 있나요?"'},
+  help:{label:'남을 돕기', place:'봉사 활동', what:'이웃 안부 살피기, 아이들 책 읽어 주기처럼 경험을 나누는 일이에요.', tags:['보람','내 경험 나누기','시간 자유'], ask:'"어르신이 할 수 있는 봉사 활동을 알려 주세요."'}
+};
+var PHONE = {
+  alarm:{label:'매일 안부 알람 맞추기', steps:['[시계] 앱을 눌러요.','아래쪽 [알람]을 누르고, [+] 버튼을 눌러요.','오전 9시로 맞추고, 이름에 "구경GO 안부"라고 적어요.','[저장]을 누르면 끝이에요. 알람이 울리면 구경GO를 열어 안부를 남겨요.']},
+  font:{label:'글씨 크게 보기', steps:['[설정] 앱(톱니바퀴)을 눌러요.','[디스플레이]를 눌러요.','[글자 크기와 스타일]을 눌러요.','막대를 오른쪽으로 밀면 글씨가 커져요.']},
+  home:{label:'구경GO를 첫 화면에 두기', steps:['인터넷 앱에서 구경GO를 열어요.','화면 아래나 위의 [메뉴] 버튼을 눌러요.','[홈 화면에 추가]를 찾아 눌러요.','[추가]를 누르면 첫 화면에 구경GO 아이콘이 생겨요.']},
+  scam:{label:'수상한 문자 구별하기', steps:['문자 속 인터넷 주소(링크)는 누르지 마세요.','나라·은행·카드사는 링크 문자로 돈 이야기를 하지 않아요.','"택배", "지원금", "가족이 급해요"는 한 번 더 의심해요.','헷갈리면 118에 물어보고, 돈을 보냈다면 바로 112에 전화해요.']}
+};
+var PREP = {
+  care:{label:'돌봄', title:'장기요양 등급', what:'혼자 일상생활이 힘들어지면 등급을 받아 집으로 오는 요양보호사나 요양시설 도움을 받을 수 있어요.',
+    factLabel:'누가 신청하나요', fact:'만 65세 이상, 또는 노인성 질병이 있는 분',
+    todo:['어떤 일이 힘든지(목욕·식사·걷기) 적어 둬요','본인이나 가족이 신청해요','공단 직원이 집에 와서 살펴봐요'],
+    tel:'1577-1000', telName:'국민건강보험공단 1577-1000', telSub:'장기요양 신청·문의', place:'건강보험공단 지사', placeSub:'직접 가서 신청할 수도 있어요',
+    save:{id:'prep-care', from:'미리 알아두기', title:'장기요양 등급 알아보기', hint:'힘든 일 적어 두기', tel:'1577-1000'}},
+  life:{label:'연명의료', title:'사전연명의료의향서', what:'회복이 어려울 때 연명 치료를 받을지 말지 건강할 때 미리 적어 두는 서류예요.',
+    factLabel:'알아 둘 점', fact:'만 19세 이상 누구나 · 직접 가서 작성 · 언제든 바꿀 수 있어요',
+    todo:['가족과 먼저 이야기를 나눠요','신분증을 들고 등록기관에 가요','상담을 듣고 직접 작성해요'],
+    tel:'1577-1000', telName:'국민건강보험공단 1577-1000', telSub:'가까운 등록기관 문의', place:'보건소 · 건강보험공단 지사 등', placeSub:'지정된 등록기관에서 작성해요',
+    save:{id:'prep-life', from:'미리 알아두기', title:'연명의료 이야기 가족과 나누기', hint:'등록기관 알아보기', tel:'1577-1000'}},
+  after:{label:'상속·장례', title:'가족이 덜 헤매도록', what:'남은 가족이 재산과 서류를 찾느라 고생하지 않게 미리 정리해 두면 좋아요.',
+    factLabel:'나중에 가족이 쓰는 서비스', fact:'안심상속 원스톱서비스 — 사망신고 때 재산을 한 번에 조회해요',
+    todo:['통장·보험·연금 목록을 종이에 적어 둬요','원하는 장례 방식을 가족에게 말해 둬요','적어 둔 종이 있는 곳을 가족에게 알려요'],
+    tel:'129', telName:'복지 상담 129', telSub:'장례 지원·제도 문의', place:'주민센터 · 정부24', placeSub:'사망신고와 안심상속 신청',
+    save:{id:'prep-after', from:'미리 알아두기', title:'통장·보험 목록 적어 두기', hint:'적은 곳을 가족에게 알리기', tel:'129'}}
+};
+var GIFTS = {
+  see:{label:'보기 편한', items:[['큰 숫자 탁상시계','날짜·요일까지 크게 보여요'],['돋보기 독서등','신문·약 봉투 글씨 읽을 때'],['큰 버튼 리모컨','버튼이 커서 누르기 쉬워요']]},
+  walk:{label:'걷기 편한', items:[['미끄럼 방지 실내화','욕실·거실 바닥에서 덜 미끄러워요'],['접이식 보행 보조차','장보기 짐도 함께 실어요'],['현관 안전 손잡이','신발 신고 벗을 때 잡아요']]},
+  hear:{label:'듣기 편한', items:[['큰 소리 알림 전화기','벨 소리와 화면이 함께 알려요'],['TV용 무선 스피커','TV 소리를 가까이에서 들어요'],['진동 알람 시계','소리 대신 떨림으로 깨워요']]},
+  home:{label:'생활 편의', items:[['요일별 약 정리함','드실 약을 요일마다 나눠 둬요'],['센서 수면등','밤에 움직이면 저절로 켜져요'],['가벼운 무선 청소기','들고 다니기 가벼워요']]}
+};
+var ui = {help:'money', time:'short', dist:'near', tog:'talk', phone:'alarm', step:0, prep:'care', gift:'see'};
+
+/* ===== 공통 ===== */
+function pressList(el, list, cur, cls, onPick){
+  el.innerHTML = list.map(function(o){ return '<button type="button" class="' + (cls || '') + '" data-id="' + esc(o.id) + '" aria-pressed="' + (o.id === cur) + '">' + esc(o.label) + '</button>'; }).join('');
+  el.onclick = function(e){ var b = e.target.closest('button[data-id]'); if(b) onPick(b.dataset.id); };
+}
+function asList(obj){ return Object.keys(obj).map(function(k){ return {id:k, label:obj[k].label}; }); }
+function isSaved(id){ return store.saved.some(function(x){ return x.id === id; }); }
+function setSaveBtn(btn, item){
+  btn.dataset.save = item.id;
+  var on = isSaved(item.id);
+  btn.className = 'btn ' + (on ? 'done' : 'gold');
+  btn.textContent = on ? '보관함에 담았어요 ✓ (누르면 빼기)' : (btn.id === 'prepSave' ? '보관함에 담아 두기' : '보관함에 담기');
+  btn.setAttribute('aria-pressed', on);
+  btn.onclick = function(){
+    if(isSaved(item.id)){ store.saved = store.saved.filter(function(x){ return x.id !== item.id; }); toast('보관함에서 뺐어요'); }
+    else { store.saved.push(Object.assign({done:false, at:ymd(new Date())}, item)); toast('보관함에 담았어요. 홈의 내 보관함에서 볼 수 있어요'); }
+    persist(); setSaveBtn(btn, item); renderHomeSaved();
+  };
+}
+function copyText(text, statusEl, okMsg){
+  function show(m){ if(statusEl){ statusEl.textContent = m; statusEl.hidden = false; } else toast(m); }
+  function fallback(){
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+    ta.remove();
+    show(ok ? okMsg : '복사하지 못했어요. 위 글을 길게 눌러 복사해 주세요.');
+  }
+  try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ show(okMsg); }, fallback); return; } }catch(e){}
+  fallback();
+}
+function shareText(text, statusEl){
+  if(navigator.share){
+    navigator.share({text:text}).then(function(){ statusEl.textContent = '보낼 곳을 고르는 화면을 열었어요.'; statusEl.hidden = false; })
+      .catch(function(err){ if(err && err.name === 'AbortError') return; copyText(text, statusEl, '글을 복사했어요. 카카오톡 대화창을 열고 붙여 넣어 주세요.'); });
+  } else copyText(text, statusEl, '글을 복사했어요. 카카오톡 대화창을 열고 붙여 넣어 주세요.');
+}
+
+/* ===== 화면 그리기 ===== */
+function weekDates(){ var now = new Date(); var idx = (now.getDay() + 6) % 7; var out = []; for(var i = 0; i < 7; i++){ var d = new Date(now); d.setDate(now.getDate() - idx + i); out.push(d); } return {list:out, idx:idx}; }
+function renderHome(){
+  var now = new Date();
+  $('topDate').textContent = todayText(now);
+  var w = weekDates(), n = 0;
+  $('week').innerHTML = w.list.map(function(d, i){
+    var m = store.moods[ymd(d)]; if(m) n++;
+    return '<div class="d"><span class="dot' + (m ? ' on' : '') + '">' + (m ? '✓' : '') + '</span><span class="' + (i === w.idx ? 'today' : '') + '">' + '월화수목금토일'[i] + '</span></div>';
+  }).join('');
+  $('weekCount').textContent = '이번 주 ' + n + '일 남김';
+  var t = store.moods[ymd(now)];
+  $('moodCtaText').textContent = t ? '오늘 안부 남김 ✓ (바꾸기)' : '오늘 기분 남기기';
+  var keys = Object.keys(store.moods).sort(), nd = $('nudge');
+  nd.hidden = true;
+  if(!t && keys.length){
+    var p = keys[keys.length - 1].split('-'), last = new Date(+p[0], +p[1] - 1, +p[2]);
+    var gap = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - last) / 86400000);
+    if(gap >= 2){ nd.textContent = '마지막 안부가 ' + gap + '일 전이에요. 오늘 기분을 남겨 보세요.'; nd.hidden = false; }
+  }
+  renderHomeSaved();
+}
+function renderHomeSaved(){
+  var left = store.saved.filter(function(x){ return !x.done; }).length;
+  $('savedCount').textContent = left;
+  $('savedSub').textContent = store.saved.length ? '남은 할 일 ' + left + '개' : '담아 둔 할 일이 없어요';
+}
+function renderMood(){
+  var key = ymd(new Date()), cur = store.moods[key];
+  var c = $('moodChoices');
+  c.innerHTML = MOODS.map(function(m){ return '<button type="button" class="choice" data-id="' + m.id + '" aria-pressed="' + (cur && cur.mood === m.id) + '" style="min-height:76px;font-size:1.25rem"><span aria-hidden="true" style="width:38px;height:38px;border-radius:50%;border:3px solid var(--green);background:' + m.color + ';flex-shrink:0"></span><span style="flex:1">' + m.label + '</span>' + (cur && cur.mood === m.id ? '<span class="small" style="color:var(--link)">선택됨</span>' : '') + '</button>'; }).join('');
+  c.onclick = function(e){ var b = e.target.closest('button[data-id]'); if(!b) return; var now = new Date(); store.moods[key] = {mood:b.dataset.id, time:timeText(now)}; prune(); persist(); $('shareStatus').hidden = true; renderMood(); renderHome(); };
+  $('moodAfter').hidden = !cur;
+  if(!cur) return;
+  var m = MOODS.filter(function(x){ return x.id === cur.mood; })[0] || MOODS[0];
+  var now = new Date(), date = (now.getMonth()+1) + '월 ' + now.getDate() + '일';
+  $('moodStatus').textContent = date + ' ' + cur.time + '에 남겼어요. ' + (canStore ? '이 휴대폰에만 저장돼요.' : '이 휴대폰은 저장을 막아 두어서 화면을 닫으면 사라져요.');
+  $('moodCare').hidden = cur.mood !== 'hard';
+  var msg = '[구경GO 안부]\n' + m.text + '\n(' + date + ' ' + cur.time + ', 직접 눌러 보낸 안부예요)';
+  $('moodMsg').textContent = msg;
+  $('smsBtn').href = 'sms:' + store.kidTel + '?&body=' + encodeURIComponent(msg);
+  $('smsBtn').textContent = store.kidTel ? '자녀(' + store.kidTel + ')에게 문자 보내기' : '문자 앱 열기';
+  $('kidTel').value = store.kidTel;
+  $('kidSave').onclick = function(){
+    var v = $('kidTel').value.replace(/[^\d]/g, '');
+    if(v && (v.length < 9 || v.length > 11)){ toast('번호를 다시 확인해 주세요'); return; }
+    store.kidTel = v ? v.replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3') : '';
+    persist(); renderMood(); toast(v ? '자녀 번호를 저장했어요' : '자녀 번호를 지웠어요');
+  };
+  $('shareBtn').onclick = function(){ shareText(msg, $('shareStatus')); };
+}
+function prune(){ var keys = Object.keys(store.moods).sort(); while(keys.length > 120){ delete store.moods[keys.shift()]; } }
+function renderHelp(){
+  var h = HELP[ui.help];
+  pressList($('helpTabs'), asList(HELP), ui.help, '', function(id){ ui.help = id; renderHelp(); });
+  $('helpBody').innerHTML = h.body;
+  $('helpTodo').innerHTML = h.todo.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+  $('helpAsk').textContent = h.ask;
+  $('helpTel').href = 'tel:' + h.tel.replace(/\D/g, ''); $('helpTelName').textContent = h.telName;
+  setSaveBtn($('helpSave'), h.save);
+}
+function renderWork(){
+  pressList($('timeChoices'), TIMES, ui.time, 'choice', function(id){ ui.time = id; renderWork(); });
+  pressList($('distChoices'), DISTS, ui.dist, 'choice', function(id){ ui.dist = id; renderWork(); });
+  var pick = ui.time === 'short' ? ['pub','svc'] : ui.time === 'mid' ? ['svc','pub','guard'] : ['guard','svc'];
+  pick = pick.filter(function(k){ return !(ui.dist === 'near' && k === 'guard' && ui.time !== 'full'); });
+  var box = $('workResults');
+  box.innerHTML = pick.map(function(k, i){
+    var j = JOBS[k];
+    return '<article class="box stack' + (i === 0 ? ' strong' : '') + '">' + (i === 0 ? '<span class="pill" style="align-self:flex-start">가장 잘 맞아요</span>' : '') +
+      '<h3 style="font-size:1.12rem;font-weight:900">' + esc(j.name) + '</h3><div class="big-num" style="color:var(--link);font-size:1.2rem">' + esc(j.pay) + '</div>' +
+      '<p style="color:var(--sub)">' + esc(j.note) + '</p><p class="small">신청: ' + esc(j.where) + '</p>' +
+      '<button type="button" class="btn" data-job="' + k + '" style="min-height:54px;font-size:1rem"></button></article>';
+  }).join('');
+  box.querySelectorAll('button[data-job]').forEach(function(b){
+    var j = JOBS[b.dataset.job];
+    setSaveBtn(b, {id:'work-' + b.dataset.job, from:'내 경험으로 일하기', title:j.name + ' 알아보기', hint:'신청: ' + j.where, tel:j.tel});
+    b.style.minHeight = '54px'; b.style.fontSize = '1rem'; b.style.boxShadow = 'none';
+  });
+  var g = $('guardLink'); if(CONFIG.guardUrl){ g.hidden = false; g.href = CONFIG.guardUrl; g.target = '_blank'; g.rel = 'noopener'; } else g.hidden = true;
+}
+function renderSaved(){
+  var list = $('savedList'), left = store.saved.filter(function(x){ return !x.done; }).length;
+  $('leftNum').textContent = left + '개';
+  $('savedEmpty').hidden = store.saved.length > 0;
+  $('shareSaved').hidden = store.saved.length === 0;
+  list.innerHTML = store.saved.map(function(x, i){
+    return '<div class="box saved-item' + (x.done ? ' is-done' : '') + '" style="border-color:' + (x.done ? 'var(--line)' : 'var(--green)') + '">' +
+      '<span class="pill soft" style="align-self:flex-start">' + esc(x.from) + '</span>' +
+      '<span class="st">' + esc(x.title) + '</span><span class="small">' + esc(x.hint) + '</span>' +
+      '<div class="pair"><button type="button" class="btn ' + (x.done ? 'done' : '') + '" data-i="' + i + '" data-act="done" aria-pressed="' + !!x.done + '">' + (x.done ? '다 했어요 ✓' : '다 했으면 누르기') + '</button>' +
+      '<a class="btn mini" href="tel:' + esc(String(x.tel).replace(/\D/g, '')) + '">' + esc(x.tel) + '</a></div>' +
+      '<button type="button" class="small" data-i="' + i + '" data-act="del" style="background:none;border:0;text-decoration:underline;min-height:44px;cursor:pointer;align-self:flex-start;color:var(--muted)">목록에서 빼기</button></div>';
+  }).join('');
+  list.onclick = function(e){
+    var b = e.target.closest('button[data-act]'); if(!b) return;
+    var i = +b.dataset.i; if(!store.saved[i]) return;
+    if(b.dataset.act === 'done') store.saved[i].done = !store.saved[i].done; else store.saved.splice(i, 1);
+    persist(); renderSaved(); renderHomeSaved();
+  };
+  $('shareSaved').onclick = function(){
+    var text = '[구경GO 할 일]\n' + store.saved.map(function(x){ return (x.done ? '✓ ' : '□ ') + x.title + ' (' + x.tel + ')'; }).join('\n');
+    shareText(text, $('savedStatus'));
+  };
+}
+function renderFamily(){
+  pressList($('giftTabs'), asList(GIFTS), ui.gift, 'choice', function(id){ ui.gift = id; renderFamily(); });
+  $('giftTabs').querySelectorAll('button').forEach(function(b){ b.style.justifyContent = 'center'; b.style.minHeight = '54px'; });
+  $('giftList').innerHTML = GIFTS[ui.gift].items.map(function(it){
+    var url = CONFIG.coupang[it[0]];
+    return '<article class="box prod"><span class="ph" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1s4 1 6 1c2 0 6 2 6-1s-4-3-6 1"/></svg></span>' +
+      '<div class="info"><b>' + esc(it[0]) + '</b><span class="small">' + esc(it[1]) + '</span>' +
+      (url ? '<a class="btn fill" href="' + esc(url) + '" target="_blank" rel="noopener sponsored">쿠팡에서 가격 보기</a>' : '<span class="btn" aria-disabled="true" style="opacity:.55;cursor:default">링크 준비 중</span>') + '</div></article>';
+  }).join('');
+  $('disclosure').hidden = !Object.keys(CONFIG.coupang).length;
+}
+function renderTogether(){
+  pressList($('togTabs'), asList(TOG), ui.tog, 'choice', function(id){ ui.tog = id; renderTogether(); });
+  $('togTabs').querySelectorAll('button').forEach(function(b){ b.style.justifyContent = 'center'; });
+  var t = TOG[ui.tog];
+  $('togCard').innerHTML = '<h2 class="h2" style="font-size:1.3rem">' + esc(t.place) + '</h2><p style="color:var(--sub)">' + esc(t.what) + '</p><div style="display:flex;flex-wrap:wrap;gap:6px">' + t.tags.map(function(g){ return '<span class="pill soft">' + esc(g) + '</span>'; }).join('') + '</div>';
+  $('togAsk').textContent = t.ask;
+  setSaveBtn($('togSave'), {id:'tog-' + ui.tog, from:'함께할 사람', title:t.place + ' 알아보기', hint:'주민센터 · 노인복지관에 묻기', tel:'129'});
+}
+function renderPhone(){
+  pressList($('phoneTopics'), asList(PHONE), ui.phone, 'choice', function(id){ ui.phone = id; ui.step = 0; renderPhone(); });
+  var p = PHONE[ui.phone], s = Math.min(ui.step, p.steps.length - 1), last = s === p.steps.length - 1;
+  $('phoneTitle').textContent = p.label; $('phoneNo').textContent = (s + 1) + ' / ' + p.steps.length;
+  $('phoneBars').innerHTML = p.steps.map(function(_, i){ return '<span class="' + (i <= s ? 'on' : '') + '"></span>'; }).join('');
+  $('phoneText').textContent = p.steps[s];
+  $('phonePrev').disabled = s === 0; $('phoneNext').textContent = last ? '처음부터' : '다음';
+  $('phonePrev').onclick = function(){ ui.step = Math.max(0, s - 1); renderPhone(); };
+  $('phoneNext').onclick = function(){ ui.step = last ? 0 : s + 1; renderPhone(); };
+  $('scamCalls').hidden = ui.phone !== 'scam';
+  $('phoneNote').textContent = ui.phone === 'scam' ? '정부·카드사도 같은 내용을 안내해요.' : '갤럭시 휴대폰 기준이에요. 기종마다 이름이 조금 달라요.';
+}
+function renderPrep(){
+  pressList($('prepTabs'), asList(PREP), ui.prep, '', function(id){ ui.prep = id; renderPrep(); });
+  var p = PREP[ui.prep];
+  $('prepTitle').textContent = p.title; $('prepWhat').textContent = p.what;
+  $('prepFactLabel').textContent = p.factLabel; $('prepFact').textContent = p.fact;
+  $('prepTodo').innerHTML = p.todo.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+  $('prepTel').href = 'tel:' + p.tel.replace(/\D/g, ''); $('prepTelName').textContent = p.telName; $('prepTelSub').textContent = p.telSub;
+  $('prepPlace').textContent = p.place; $('prepPlaceSub').textContent = p.placeSub;
+  setSaveBtn($('prepSave'), p.save);
+}
+function renderAbout(){
+  $('storeNote').textContent = canStore ? '지금 이 휴대폰에 안부 ' + Object.keys(store.moods).length + '일, 보관함 ' + store.saved.length + '개가 저장돼 있어요.' : '이 휴대폰(또는 브라우저)은 저장을 막아 두어서 화면을 닫으면 기록이 사라져요.';
+  $('wipeConfirm').hidden = true;
+  $('wipeAsk').onclick = function(){ $('wipeConfirm').hidden = false; $('wipeYes').focus(); };
+  $('wipeNo').onclick = function(){ $('wipeConfirm').hidden = true; };
+  $('introShare').onclick = function(){
+    var url = CONFIG.appUrl || (/^https?:/.test(location.protocol) ? location.href.split('#')[0] : '');
+    shareText('[구경GO 라이프케어]\n오늘의 안부 기록, 기초연금·식사·안전 도움, 일자리, 스마트폰 도움을 큰 글씨로 모은 무료 앱이에요.\n기록은 휴대폰에만 저장돼요.\n' + url, $('introStatus'));
+  };
+  $('wipeYes').onclick = function(){ store = blank(); store.first = ymd(new Date()); try{ localStorage.removeItem(KEY); }catch(e){} applyBig(); renderAbout(); renderHome(); toast('기록을 모두 지웠어요'); };
+}
+
+var FB_MENUS = [{id:'mood',label:'오늘의 안부'},{id:'help',label:'생활 도움'},{id:'work',label:'일하기'},{id:'together',label:'함께할 사람'},{id:'phone',label:'스마트폰 도움'},{id:'prepare',label:'미리 알아두기'}];
+var FB_HARD = FB_MENUS.concat([{id:'share',label:'보내기 버튼'},{id:'speak',label:'듣기 버튼'}]);
+var FB_SEE = [{id:'good',label:'잘 보였어요'},{id:'ok',label:'보통'},{id:'small',label:'작았어요'}];
+var FB_AGE = [{id:'60',label:'60대'},{id:'70',label:'70대'},{id:'80',label:'80대 이상'}];
+function labelOf(list, id){ var o = list.filter(function(x){ return x.id === id; })[0]; return o ? o.label : '고르지 않음'; }
+function renderFeedback(){
+  var f = store.fb; if(!Array.isArray(f.hard)) f.hard = [];
+  function upd(k){ return function(id){ f[k] = id; persist(); renderFeedback(); }; }
+  pressList($('fbSee'), FB_SEE, f.see, '', upd('see'));
+  pressList($('fbBest'), FB_MENUS, f.best, 'choice', upd('best'));
+  pressList($('fbAge'), FB_AGE, f.age, '', upd('age'));
+  var h = $('fbHard');
+  h.innerHTML = FB_HARD.map(function(o){ return '<button type="button" class="choice" data-id="' + o.id + '" aria-pressed="' + (f.hard.indexOf(o.id) >= 0) + '">' + esc(o.label) + '</button>'; }).join('');
+  h.onclick = function(e){ var b = e.target.closest('button[data-id]'); if(!b) return; var i = f.hard.indexOf(b.dataset.id); if(i >= 0) f.hard.splice(i, 1); else f.hard.push(b.dataset.id); persist(); renderFeedback(); };
+  $('fbNote').value = f.note || '';
+  $('fbNote').oninput = function(){ f.note = this.value.slice(0, 500); persist(); };
+  $('fbSend').onclick = function(){
+    var done = store.saved.filter(function(x){ return x.done; }).length;
+    var top = Object.keys(store.visits).filter(function(k){ return k !== 'home' && k !== 'feedback'; }).sort(function(a, b){ return store.visits[b] - store.visits[a]; }).slice(0, 3).map(function(k){ return NAMES[k] + ' ' + store.visits[k] + '번'; });
+    var text = '[구경GO 라이프케어 소감]\n나이대: ' + labelOf(FB_AGE, f.age) + '\n글씨·버튼: ' + labelOf(FB_SEE, f.see) + '\n가장 쓸모 있던 메뉴: ' + labelOf(FB_MENUS, f.best) +
+      '\n어려웠던 곳: ' + (f.hard.length ? f.hard.map(function(id){ return labelOf(FB_HARD, id); }).join(', ') : '없음') + '\n하고 싶은 말: ' + ((f.note || '').trim() || '없음') +
+      '\n\n— 사용 기록 —\n처음 쓴 날: ' + (store.first || '-') + '\n안부 남긴 날: ' + Object.keys(store.moods).length + '일\n보관함: ' + store.saved.length + '개 (다 한 일 ' + done + '개)\n많이 연 화면: ' + (top.join(', ') || '없음');
+    shareText(text, $('fbStatus'));
+  };
+}
+
+/* ===== 이동 · 글씨 · 소리 ===== */
+var NAMES = {home:'구경GO 라이프케어', mood:'오늘의 안부', help:'생활 도움', work:'내 경험으로 일하기', saved:'내 보관함', family:'자녀와 연결', together:'함께할 사람', phone:'스마트폰 도움', prepare:'미리 알아두기', about:'앱 정보', feedback:'써 보신 소감'};
+var RENDER = {home:renderHome, mood:renderMood, help:renderHelp, work:renderWork, saved:renderSaved, family:renderFamily, together:renderTogether, phone:renderPhone, prepare:renderPrep, about:renderAbout, feedback:renderFeedback};
+var current = 'home';
+function go(name){
+  if(!RENDER[name]) name = 'home';
+  stopSpeak();
+  current = name;
+  store.visits[name] = (store.visits[name] || 0) + 1; persist();
+  document.querySelectorAll('[data-screen]').forEach(function(s){ s.hidden = s.dataset.screen !== name; });
+  $('top').classList.toggle('sub', name !== 'home');
+  $('topTitle').textContent = NAMES[name];
+  $('topDate').hidden = name !== 'home';
+  RENDER[name]();
+  document.title = name === 'home' ? '구경GO 라이프케어' : NAMES[name] + ' · 구경GO';
+  window.scrollTo(0, 0);
+  var h = document.querySelector('[data-screen="' + name + '"] h1, [data-screen="' + name + '"] h2');
+  if(h && name !== 'home'){ h.setAttribute('tabindex', '-1'); h.focus({preventScroll:true}); }
+}
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[href^="#"]'); if(!a) return;
+  if(a.dataset.tab) ui.help = a.dataset.tab;
+  if(a.dataset.topic){ ui.phone = a.dataset.topic; ui.step = 0; }
+  var name = a.getAttribute('href').slice(1);
+  if(RENDER[name]){ e.preventDefault(); if(location.hash !== '#' + name){ try{ history.pushState(null, '', '#' + name); }catch(err){} } go(name); }
+});
+window.addEventListener('popstate', function(){ go((location.hash || '#home').slice(1)); });
+window.addEventListener('hashchange', function(){ var n = (location.hash || '#home').slice(1); if(n !== current) go(n); });
+
+function applyBig(){
+  document.documentElement.classList.toggle('big', !!store.big);
+  $('bigBtn').setAttribute('aria-pressed', !!store.big);
+  $('bigLabel').textContent = store.big ? '보통' : '크게';
+}
+$('bigBtn').onclick = function(){ store.big = !store.big; persist(); applyBig(); };
+
+var synth = window.speechSynthesis || null;
+function stopSpeak(){ try{ if(synth) synth.cancel(); }catch(e){} $('speakBtn').setAttribute('aria-pressed', 'false'); $('speakLabel').textContent = '듣기'; }
+$('speakBtn').onclick = function(){
+  if(!synth || typeof SpeechSynthesisUtterance === 'undefined'){ toast('이 휴대폰은 소리 읽기를 지원하지 않아요'); return; }
+  if($('speakBtn').getAttribute('aria-pressed') === 'true'){ stopSpeak(); return; }
+  var sec = document.querySelector('[data-screen="' + current + '"]');
+  var text = (current === 'home' ? '오늘은 ' + todayText(new Date()) + '입니다. ' : '') + sec.innerText.replace(/\s+/g, ' ').slice(0, 900);
+  var u = new SpeechSynthesisUtterance(text); u.lang = 'ko-KR'; u.rate = 0.9;
+  u.onend = u.onerror = function(){ $('speakBtn').setAttribute('aria-pressed', 'false'); $('speakLabel').textContent = '듣기'; };
+  try{ synth.cancel(); synth.speak(u); $('speakBtn').setAttribute('aria-pressed', 'true'); $('speakLabel').textContent = '멈춤'; }catch(e){ toast('소리를 낼 수 없어요'); }
+};
+
+/* ===== 시작 ===== */
+if(!store.first){ store.first = ymd(new Date()); persist(); }
+applyBig();
+go((location.hash || '#home').slice(1));
+if('serviceWorker' in navigator && location.protocol === 'https:'){ try{ navigator.serviceWorker.register('sw.js').catch(function(){}); }catch(e){} }
+})();
+</script>
+
+</body>
+</html>
